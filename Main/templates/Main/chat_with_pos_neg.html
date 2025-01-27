@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% load custom_filters %}
 {% block title %}
-    Main
+    Chat With Positive And Negative
+{% endblock %}
+{% block header %}
+    <link rel="stylesheet" href="/static/css/app2.min.css">
 {% endblock %}
 {% block lg_flex %}
     <div class="layout-wrapper d-lg-flex">
 {% endblock %}
 {% block side_bar_menu %}
-    {% include 'side_bar_menu.html' %}
+	{% include 'side_bar_menu.html' %}
 {% endblock %}
 {% block content %}
     <!-- Start User chat -->
@@ -79,52 +82,80 @@
 
                 <!-- start chat conversation -->
                 <div class="chat-conversation p-3 p-lg-4" data-simplebar="init">
-                    <ul class="list-unstyled mb-0 clearfix">
-                        <div class="body_card_ch">
-                            <div class="particles">
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                            </div>
-                            <img src="/static/images/main/main-ai-photo1.webp" alt="User 1" class="card-image"
-                                 width="100%" height="100%">
-                            <div class="card-content">
-                                <h3>Chat with Chattoya's first dedicated AI</h3>
-                                <p>Version 1.1 of the suspect detection robot beta series</p>
-                            </div>
-                            <a href="{% url 'chat_with_pos_neg' %}">Click Me</a>
-                        </div>
-                        <div class="body_card_ch">
-                            <div class="particles">
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                            </div>
-                            <img src="/static/images/main/main-ai-photo2.jpg" alt="User 2" class="card-image"
-                                 width="100%" height="100%">
-                            <div class="card-content">
-                                <h3>Chat with Chattoya's first dedicated AI</h3>
-                                <p>Version 1.1 of the suspect detection robot beta series</p>
-                            </div>
-                            <a>Click Me</a>
-                        </div>
-                        <div class="body_card_ch">
-                            <div class="particles">
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                                <div class="particle"></div>
-                            </div>
-                            <img src="/static/images/main/main-ai-photo3.jpg" alt="User 3" class="card-image"
-                                 width="100%" height="100%">
-                            <div class="card-content">
-                                <h3>Chat with Chattoya's first dedicated AI</h3>
-                                <p>Version 1.1 of the suspect detection robot beta series</p>
-                            </div>
-                            <a>Click Me</a>
-                        </div>
+                    <ul class="list-unstyled mb-0">
+                        {% for message in messages %}
+                            {% if message|instanceof:"Messages" %}
+                                <li>
+                                    <div class="conversation-list">
+                                        <div class="chat-avatar">
+                                            <img src="/static/images/users/avatar-4.jpg" alt="">
+                                        </div>
+                                        <div class="user-chat-content">
+                                            <div class="ctext-wrap">
+                                                <div class="ctext-wrap-content">
+                                                    <p class="mb-0">{{ message.message }}</p>
+                                                    <p class="chat-time mb-0">
+                                                        <span class="align-middle">{{ message.time|date:"H:i" }}</span>
+                                                        <i class="ri-time-line align-middle"></i>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="conversation-name"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="right">
+                                    <div class="conversation-list">
+                                        <div class="chat-avatar">
+                                            <img src="/static/images/users/avatar-4.jpg" alt="">
+                                        </div>
+                                        <div class="user-chat-content">
+                                            <div class="ctext-wrap">
+                                                <div class="ctext-wrap-content">
+                                                    <p class="mb-0">{{ message.message }}</p>
+                                                    <p class="chat-time mb-0">
+                                                        <span class="align-middle">{{ message.time|date:"H:i" }}</span>
+                                                        <i class="ri-time-line align-middle"></i>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="conversation-name">Bot</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                 </div>
                 <!-- end chat conversation end -->
+
+                <!-- start chat input section -->
+                <div class="chat-input-section p-3 p-lg-4 border-top mb-0">
+                    <form class="row g-0">
+                        {% csrf_token %}
+                        <div class="col">
+                            <input type="text" id="input-field"
+                                   class="form-control form-control-lg bg-light border-light"
+                                   placeholder="Enter Message...">
+                        </div>
+                        <div class="col-auto">
+                            <div class="chat-input-links ms-md-2 me-md-0">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <!-- دکمه ارسال با استفاده از رویداد onclick -->
+                                        <button type="button"
+                                                class="btn btn-primary font-size-16 btn-lg chat-send waves-effect waves-light"
+                                                onclick="sendText('{{ request.user.id }}')">
+                                            <i class="ri-send-plane-2-fill"></i> Send
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- end chat input section -->
             </div>
             <!-- end chat conversation section -->
         </div>

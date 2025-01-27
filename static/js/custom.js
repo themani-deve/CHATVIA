@@ -8,7 +8,7 @@ function sendText(uid) {
     }
 
     $.ajax({
-        url: '/ml-process/',
+        url: '/main/ml-process-pos-neg/',
         type: 'GET',
         data: {
             user_id: user_id,

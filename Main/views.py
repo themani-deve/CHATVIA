@@ -6,8 +6,11 @@ import joblib
 
 # Create your views here.
 
-
 def main_view(request):
+    return render(request, 'Main/index.html')
+
+
+def chat_with_pos_neg(request):
     if request.user.is_authenticated:
         user_messages = Messages.objects.filter(user_id=request.user.id)
         ml_messages = MlMessages.objects.filter(user_id=request.user.id)
@@ -15,12 +18,12 @@ def main_view(request):
         context = {
             'messages': list_messages,
         }
-        return render(request, 'Main/index.html', context)
+        return render(request, 'Main/chat_with_pos_neg.html', context)
     else:
         return redirect(reverse('login'))
 
 
-def ml_process(request):
+def ml_process_pos_neg(request):
     if request.user.is_authenticated:
         model = joblib.load('Comprehenc.pkl')
         vectorizer = joblib.load('vectorizer.pkl')

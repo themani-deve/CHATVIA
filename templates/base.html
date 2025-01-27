@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     {% include 'references/header.html' %}
+    {% block header %}{% endblock %}
 </head>
-<body>
-    {% block content %}{% endblock %}
-    {% include 'references/footer.html' %}
+<body data-bs-theme="dark">
+    {% block lg_flex %}{% endblock %}
+        {% block side_bar_menu %}{% endblock %}
+            {% block content %}{% endblock %}
+        {% include 'references/footer.html' %}
 </body>
 </html>
