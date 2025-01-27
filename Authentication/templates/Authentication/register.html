@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}
+    Register Page
+{% endblock %}
+{% block content %}
+    <div class="account-pages my-4 pt-sm-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="text-center">
+                        <div href="index.html" class="auth-logo mb-5 d-block">
+                            <img src="/static/images/logo-dark.png" alt="" height="30" class="logo logo-dark">
+                            <img src="/static/images/logo-light.png" alt="" height="30" class="logo logo-light">
+                        </div>
+                        <h4>Register</h4>
+                        <p class="text-muted mb-4">Welcome To Chatvia!</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="p-3">
+                                <form method="post" action="{% url 'register' %}">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ form.email.label }}</label>
+                                        <div class="input-group mb-3 bg-light-subtle rounded-3">
+                                            <span class="input-group-text text-muted" id="basic-addon3">
+                                                <i class="ri-user-2-line"></i>
+                                            </span>
+                                            {{ form.email }}
+                                        </div>
+                                        {% if form.email.errors %}
+                                            <div class="alert alert-danger">{{ form.email.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">{{ form.password.label }}</label>
+                                        <div class="input-group mb-3 bg-light-subtle rounded-3">
+                                            <span class="input-group-text text-muted" id="basic-addon4">
+                                                <i class="ri-lock-2-line"></i>
+                                            </span>
+                                            {{ form.password }}
+                                        </div>
+                                        {% if form.password.errors %}
+                                            <div class="alert alert-danger">{{ form.password.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">{{ form.password2.label }}</label>
+                                        <div class="input-group mb-3 bg-light-subtle rounded-3">
+                                            <span class="input-group-text text-muted" id="basic-addon4">
+                                                <i class="ri-lock-2-line"></i>
+                                            </span>
+                                            {{ form.password2 }}
+                                        </div>
+                                        {% if form.password2.errors %}
+                                            <div class="alert alert-danger">{{ form.password2.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                            Register
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <p>Do you have an account?
+                            <a href="{% url 'login' %}" class="fw-medium text-primary">Login</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
