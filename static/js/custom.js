@@ -67,6 +67,7 @@ function sendText(uid) {
     `;
             $('.chat-conversation ul').append(newMessage);
             $('#input-field').val(''); // Clear input field
+            $('#empty-box').remove()
         },
 
         error: function (xhr, status, error) {

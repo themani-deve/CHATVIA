@@ -10,7 +10,7 @@
     <div class="layout-wrapper d-lg-flex">
 {% endblock %}
 {% block side_bar_menu %}
-	{% include 'side_bar_menu.html' %}
+    {% include 'side_bar_menu.html' %}
 {% endblock %}
 {% block content %}
     <!-- Start User chat -->
@@ -83,49 +83,55 @@
                 <!-- start chat conversation -->
                 <div class="chat-conversation p-3 p-lg-4" data-simplebar="init">
                     <ul class="list-unstyled mb-0">
-                        {% for message in messages %}
-                            {% if message|instanceof:"Messages" %}
-                                <li>
-                                    <div class="conversation-list">
-                                        <div class="chat-avatar">
-                                            <img src="/static/images/users/avatar-4.jpg" alt="">
-                                        </div>
-                                        <div class="user-chat-content">
-                                            <div class="ctext-wrap">
-                                                <div class="ctext-wrap-content">
-                                                    <p class="mb-0">{{ message.message }}</p>
-                                                    <p class="chat-time mb-0">
-                                                        <span class="align-middle">{{ message.time|date:"H:i" }}</span>
-                                                        <i class="ri-time-line align-middle"></i>
-                                                    </p>
-                                                </div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message|instanceof:"Messages" %}
+                                    <li>
+                                        <div class="conversation-list">
+                                            <div class="chat-avatar">
+                                                <img src="/static/images/users/avatar-4.jpg" alt="">
                                             </div>
-                                            <div class="conversation-name"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            {% else %}
-                                <li class="right">
-                                    <div class="conversation-list">
-                                        <div class="chat-avatar">
-                                            <img src="/static/images/users/avatar-4.jpg" alt="">
-                                        </div>
-                                        <div class="user-chat-content">
-                                            <div class="ctext-wrap">
-                                                <div class="ctext-wrap-content">
-                                                    <p class="mb-0">{{ message.message }}</p>
-                                                    <p class="chat-time mb-0">
-                                                        <span class="align-middle">{{ message.time|date:"H:i" }}</span>
-                                                        <i class="ri-time-line align-middle"></i>
-                                                    </p>
+                                            <div class="user-chat-content">
+                                                <div class="ctext-wrap">
+                                                    <div class="ctext-wrap-content">
+                                                        <p class="mb-0">{{ message.message }}</p>
+                                                        <p class="chat-time mb-0">
+                                                            <span class="align-middle">{{ message.time|date:"H:i" }}</span>
+                                                            <i class="ri-time-line align-middle"></i>
+                                                        </p>
+                                                    </div>
                                                 </div>
+                                                <div class="conversation-name"></div>
                                             </div>
-                                            <div class="conversation-name">Bot</div>
                                         </div>
-                                    </div>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
+                                    </li>
+                                {% else %}
+                                    <li class="right">
+                                        <div class="conversation-list">
+                                            <div class="chat-avatar">
+                                                <img src="/static/images/users/avatar-4.jpg" alt="">
+                                            </div>
+                                            <div class="user-chat-content">
+                                                <div class="ctext-wrap">
+                                                    <div class="ctext-wrap-content">
+                                                        <p class="mb-0">{{ message.message }}</p>
+                                                        <p class="chat-time mb-0">
+                                                            <span class="align-middle">{{ message.time|date:"H:i" }}</span>
+                                                            <i class="ri-time-line align-middle"></i>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="conversation-name">Bot</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-primary text-center" role="alert" id="empty-box">
+                                Your Chat Box is Empty. Please Start a Conversation!!!
+                            </div>
+                        {% endif %}
                     </ul>
                 </div>
                 <!-- end chat conversation end -->
