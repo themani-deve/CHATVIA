@@ -66,6 +66,7 @@ function sendText(uid) {
         </li>
     `;
             $('.chat-conversation ul').append(newMessage);
+            setTimeout(scrollToBottom, 100);
             $('#input-field').val(''); // Clear input field
             $('#empty-box').remove()
         },
@@ -76,3 +77,12 @@ function sendText(uid) {
         }
     });
 }
+
+
+function scrollToBottom() {
+    let botMessages = document.querySelectorAll("#bot");
+    if (botMessages.length > 0) {
+        botMessages[botMessages.length - 1].scrollIntoView({behavior: "smooth"});
+    }
+}
+

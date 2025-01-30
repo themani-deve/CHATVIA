@@ -81,7 +81,7 @@
                 <!-- end chat user head -->
 
                 <!-- start chat conversation -->
-                <div class="chat-conversation p-3 p-lg-4" data-simplebar="init">
+                <div class="chat-conversation p-3 p-lg-4" data-simplebar="init" style="overflow-y: auto;">
                     <ul class="list-unstyled mb-0">
                         {% if messages %}
                             {% for message in messages %}
@@ -114,7 +114,7 @@
                                             <div class="user-chat-content">
                                                 <div class="ctext-wrap">
                                                     <div class="ctext-wrap-content">
-                                                        <p class="mb-0">{{ message.message }}</p>
+                                                        <p class="mb-0" id="bot">{{ message.message }}</p>
                                                         <p class="chat-time mb-0">
                                                             <span class="align-middle">{{ message.time|date:"H:i" }}</span>
                                                             <i class="ri-time-line align-middle"></i>
@@ -169,4 +169,18 @@
     </div>
     <!-- end  layout wrapper -->
     </div>
+{% endblock %}
+{% block footer %}
+    <script>
+        $(document).ready(function () {
+            setTimeout(scrollToBottom, 100);
+
+            $("#input-field").keypress(function (event) {
+                if (event.which === 13) {
+                    event.preventDefault();
+                    sendText("{{ request.user.id }}");
+                }
+            });
+        });
+    </script>
 {% endblock %}
