@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
 from Main.models import Messages, MlMessages
+from utils.Encryption.main import encryption, decoding
+from Main.signals import is_logged_in
 import joblib
 
 
@@ -10,38 +12,64 @@ def main_view(request):
     return render(request, 'Main/index.html')
 
 
+@is_logged_in
 def chat_with_pos_neg(request):
-    if request.user.is_authenticated:
-        user_messages = Messages.objects.filter(user_id=request.user.id)
-        ml_messages = MlMessages.objects.filter(user_id=request.user.id)
-        list_messages = sorted(list(user_messages) + list(ml_messages), key=lambda message: message.datetime)
-        context = {
-            'messages': list_messages,
-        }
-        return render(request, 'Main/chat_with_pos_neg.html', context)
-    else:
-        return redirect(reverse('login'))
+    user_messages = Messages.objects.filter(user_id=request.user.id)
+    ml_messages = MlMessages.objects.filter(user_id=request.user.id)
+    list_messages = sorted(list(user_messages) + list(ml_messages), key=lambda message: message.datetime)
+    context = {
+        'messages': list_messages,
+    }
+    return render(request, 'Main/chat_with_pos_neg.html', context)
 
 
+@is_logged_in
 def ml_process_pos_neg(request):
-    if request.user.is_authenticated:
-        model = joblib.load('Comprehenc.pkl')
-        vectorizer = joblib.load('vectorizer.pkl')
-        text = request.GET.get('text')
-        user_id = request.GET.get('user_id')
-        message: Messages = Messages(user_id=user_id, message=text)
-        message.save()
-        x = vectorizer.transform([text]).toarray()
-        y_pred = model.predict(x)
-        if y_pred == 0:
-            y_pred_to_str = 'Negative'
-        else:
-            y_pred_to_str = 'Positive'
-        ml_message: MlMessages = MlMessages(user_id=user_id, message=y_pred_to_str)
-        ml_message.save()
-
-        return JsonResponse({
-            'y_pred': y_pred_to_str,
-        })
+    model = joblib.load('Comprehenc.pkl')
+    vectorizer = joblib.load('vectorizer.pkl')
+    text = request.POST.get('text')
+    user_id = request.POST.get('user_id')
+    message: Messages = Messages(user_id=user_id, message=text)
+    message.save()
+    x = vectorizer.transform([text]).toarray()
+    y_pred = model.predict(x)
+    if y_pred == 0:
+        y_pred_to_str = 'Negative'
     else:
-        return redirect(reverse('login'))
+        y_pred_to_str = 'Positive'
+    ml_message: MlMessages = MlMessages(user_id=user_id, message=y_pred_to_str)
+    ml_message.save()
+
+    return JsonResponse({
+        'y_pred': y_pred_to_str,
+    })
+
+
+@is_logged_in
+def chat_with_encryption(request):
+    return render(request, 'Main/encryption.html')
+
+
+@is_logged_in
+def encryption_processing(request):
+    text = request.POST.get('text')
+    alphabet_dict = request.session.get('alphabet_dict', {})
+    encryption_result = encryption(text=text, alphabet_dict=alphabet_dict)
+    return JsonResponse({
+        'y_pred': encryption_result,
+    })
+
+
+@is_logged_in
+def chat_with_decoder(request):
+    return render(request, 'Main/decoder.html')
+
+
+@is_logged_in
+def decoder_processing(request):
+    numbers = request.POST.get('numbers')
+    alphabet_dict = request.session.get('alphabet_dict', {})
+    decoder_result = decoding(numbers=numbers, alphabet_dict=alphabet_dict)
+    return JsonResponse({
+        'y_pred': decoder_result if decoder_result else 'You cannot decode this text!',
+    })

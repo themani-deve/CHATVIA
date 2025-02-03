@@ -79,10 +79,11 @@ WSGI_APPLICATION = 'Chatvia.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Chatvia',
+        'NAME': 'chatvia',
         'USER': 'root',
         'PASSWORD': 'M.1029384756.m',
         'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 

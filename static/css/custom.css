@@ -159,16 +159,18 @@
 .body_card_ch a {
     margin-top: 20px;
     padding: 10px 20px;
-    background: linear-gradient(45deg, #800080, #ff00ff);
     color: white;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background-position 0.5s ease, transform 0.5s ease;
     margin-bottom: 35px;
+    background: linear-gradient(45deg, #800080, #ff00ff);
+    background-size: 200% 200%;
+    background-position: left;
 }
 
 .body_card_ch a:hover {
-    background: linear-gradient(45deg, #ff00ff, #800080);
+    background-position: right;
     transform: scale(1.1);
 }

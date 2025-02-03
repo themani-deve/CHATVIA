@@ -2,6 +2,7 @@ from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect, reverse
 from Authentication.models import User
 from Authentication.forms import *
+from utils.Encryption.create_ascii import generate_alphabet_dict
 
 
 # Create your views here.
@@ -24,6 +25,8 @@ def register_view(request):
                     split_email_for_username = user_email.lower().split('@gmail.com')
                     str_split = ''.join(split_email_for_username)
                     new_user = User(username=str_split, email=user_email, is_active=True)
+                    alphabet_dict = generate_alphabet_dict()
+                    new_user.set_alphabet_dict(alphabet_dict)
                     new_user.set_password(user_pass)
                     new_user.save()
                     return redirect(reverse('login'))
@@ -47,6 +50,10 @@ def login_view(request):
                 if user:
                     if user.check_password(user_pass):
                         login(request, user)
+                        if user.alphabet_dict is None:
+                            alphabet_dict = generate_alphabet_dict()
+                            user.set_alphabet_dict(alphabet_dict)
+                        request.session['alphabet_dict'] = user.get_alphabet_dict()
                         return redirect(reverse('main'))
                     else:
                         form.add_error('password', 'Password is Not Correct!!!')
@@ -83,3 +90,5 @@ def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
         return redirect(reverse('login'))
+    else:
+        return redirect(reverse('main'))
