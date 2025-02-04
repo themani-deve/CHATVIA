@@ -2,13 +2,13 @@
 <div class="side-menu flex-lg-column me-lg-1 ms-lg-0">
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="index.html" class="logo logo-dark">
+        <a href="{% url 'main' %}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="/static/images/logo.svg" alt="" height="30">
             </span>
         </a>
 
-        <a href="index.html" class="logo logo-light">
+        <a href="{% url 'main' %}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="/static/images/logo.svg" alt="" height="30">
             </span>
@@ -19,26 +19,28 @@
     <!-- Start side-menu nav -->
     <div class="flex-lg-column my-auto">
         <ul class="nav nav-pills side-menu-nav justify-content-center" role="tablist">
-            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Chats">
-                <a class="nav-link active" id="pills-chat-tab" data-bs-toggle="pill" href="#pills-chat"
-                   role="tab">
-                    <i class="ri-message-3-line"></i>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+                <a class="nav-link{% if request.resolver_match.url_name == 'main' %} active{% endif %}"
+                   id="pills-chat-tab" href="{% url 'main' %}">
+                    <i class="ri-home-2-line"></i>
                 </a>
             </li>
-            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile">
-                <a class="nav-link" id="pills-user-tab" data-bs-toggle="pill" href="#pills-user" role="tab">
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="My Permissions">
+                <a class="nav-link{% if request.resolver_match.url_name == 'my_permissions' %} active{% endif %}"
+                   id="pills-user-tab" href="{% url 'my_permissions' %}">
                     <i class="ri-user-2-line"></i>
                 </a>
             </li>
-            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Groups">
-                <a class="nav-link" id="pills-groups-tab" data-bs-toggle="pill" href="#pills-groups" role="tab">
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Other Users Permissions">
+                <a class="nav-link{% if request.resolver_match.url_name == 'other_user_permission' %} active{% endif %}"
+                   id="pills-contacts-tab" href="{% url 'other_user_permission' %}">
                     <i class="ri-group-line"></i>
                 </a>
             </li>
-            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Contacts">
-                <a class="nav-link" id="pills-contacts-tab" data-bs-toggle="pill" href="#pills-contacts"
-                   role="tab">
-                    <i class="ri-contacts-line"></i>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Set Permissions">
+                <a class="nav-link{% if request.resolver_match.url_name == 'set_permission' %} active{% endif %}"
+                   id="pills-groups-tab" href="{% url 'set_permission' %}">
+                    <i class="ri-add-box-fill"></i>
                 </a>
             </li>
             <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
