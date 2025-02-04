@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Internal Apps
     'Authentication',
     'Main',
+    'Other_U_Processing',
     # External Apps
     'django_render_partial',
 ]

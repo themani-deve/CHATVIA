@@ -22,8 +22,8 @@ def register_view(request):
                 if user:
                     form.add_error('email', 'Email Does Exists!!!')
                 else:
-                    split_email_for_username = user_email.lower().split('@gmail.com')
-                    str_split = ''.join(split_email_for_username)
+                    split_email_for_username = user_email.lower().split('@')
+                    str_split = ''.join(split_email_for_username[0])
                     new_user = User(username=str_split, email=user_email, is_active=True)
                     alphabet_dict = generate_alphabet_dict()
                     new_user.set_alphabet_dict(alphabet_dict)

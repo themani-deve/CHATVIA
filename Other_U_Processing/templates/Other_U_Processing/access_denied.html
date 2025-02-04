@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+    Access Denied
+{% endblock %}
+{% block side_bar_menu %}
+    {% include 'side_bar_menu.html' %}
+{% endblock %}
+{% block lg_flex %}
+    <div class="layout-wrapper d-lg-flex">
+{% endblock %}
+{% block content %}
+    <div class="user-chat w-100 overflow-hidden">
+        <div class="d-lg-flex">
+            <div class="w-100 overflow-hidden position-relative">
+                <div class="chat-conversation p-3 p-lg-4" data-simplebar="init" style="overflow-y: auto;">
+                    <ul class="list-unstyled mb-0">
+                        <li class="alert alert-danger text-center" id="empty-box">
+                            <h1 style="text-align: left;">Access Denied!</h1><p style="text-align: left; color: white;">You Do Not Have Access To This Page.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

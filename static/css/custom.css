@@ -174,3 +174,45 @@
     background-position: right;
     transform: scale(1.1);
 }
+
+.user-list-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: var(--bs-body-bg);
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.user-info {
+    flex-grow: 1;
+    margin-left: 5px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.btn-remove {
+    font-size: 14px;
+    transition: 0.3s;
+    border: 1px solid #dc3545;
+}
+
+.btn-remove:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    cursor: pointer;
+}

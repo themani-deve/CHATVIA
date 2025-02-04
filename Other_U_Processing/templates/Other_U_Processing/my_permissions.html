@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}
+    My Permissions
+{% endblock %}
+{% block side_bar_menu %}
+    {% include 'side_bar_menu.html' %}
+{% endblock %}
+{% block lg_flex %}
+    <div class="layout-wrapper d-lg-flex">
+{% endblock %}
+{% block content %}
+    <div class="user-chat w-100 overflow-hidden">
+        <div class="d-lg-flex">
+            <div class="w-100 overflow-hidden position-relative">
+                <div class="p-3 p-lg-4 border-bottom user-chat-topbar">
+                    <div class="row align-items-center">
+                        <div class="col-sm-4 col-8">
+                            <div class="d-flex align-items-center">
+                                <div class="d-block d-lg-none me-2 ms-0">
+                                    <a href="javascript: void(0);"
+                                       class="user-chat-remove text-muted font-size-16 p-2"><i
+                                            class="ri-arrow-left-s-line"></i></a>
+                                </div>
+                                <div class="me-3 ms-0">
+                                    <img src="/static/images/users/avatar-4.jpg" class="rounded-circle avatar-xs"
+                                         alt="">
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h5 class="font-size-16 mb-0 text-truncate">
+                                        <a href="#" class="text-reset user-profile-show">
+                                            ChatVia
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 col-4">
+                            <ul class="list-inline user-chat-nav text-end mb-0">
+                                <li class="list-inline-item">
+                                    <div class="dropdown">
+                                        <button class="btn nav-btn dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                            <i class="ri-search-line"></i>
+                                        </button>
+                                        <div class="dropdown-menu p-0 dropdown-menu-end dropdown-menu-md">
+                                            <div class="search-box p-2">
+                                                <input type="text" class="form-control bg-light border-0"
+                                                       placeholder="Search..">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="dropdown">
+                                        <button class="btn nav-btn dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                            <i class="ri-more-fill"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">بایگانی<i
+                                                    class="ri-archive-line float-end text-muted"></i></a>
+                                            <a class="dropdown-item" href="#">بی صدا شد<i
+                                                    class="ri-volume-mute-line float-end text-muted"></i></a>
+                                            <a class="dropdown-item" href="#">حذف<i
+                                                    class="ri-delete-bin-line float-end text-muted"></i></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <h3 class="text-center mb-4">People Who Have Given You Access</h3>
+                    <div class="card p-3">
+                        {% if permissions %}
+                            {% for permission in permissions %}
+                                <div class="user-list-item">
+                                    <img src="/static/images/users/avatar-1.jpg" alt="User" class="user-avatar">
+                                    <div class="user-info">
+                                        <div class="username">{{ permission.user1.first_name }} {{ permission.user1.last_name }}</div>
+                                        <div class="text-muted"><a
+                                                href="{% url 'use_other_user_alphabet' username=permission.user1.username %}">{{ permission.user1.username }}</a>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-outline-primary">You Accessed This User Alpha Dict!</button>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center text-muted">You Have Not Been Granted Access By Any User.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
