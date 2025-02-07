@@ -25,7 +25,8 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
                         <p class="card-text text-muted">{{ user.username }}</p>
-                        <a href="{% url 'change_profile_photo' %}" class="btn btn-outline-primary">Change Profile Photo</a>
+                        <a href="{% url 'change_profile_photo' %}" class="btn btn-outline-primary">Change Profile
+                            Photo</a>
                     </div>
                 </div>
             </div>
@@ -42,7 +43,8 @@
                             <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
                         </ul>
                         <div class="mt-4">
-                            <a href="{% url 'change_personal_information' %}" class="btn btn-outline-primary">Change Personal Information</a>
+                            <a href="{% url 'change_personal_information' %}" class="btn btn-outline-primary">Change
+                                Personal Information</a>
                             <a href="{% url 'change_password' %}" class="btn btn-outline-success">Change Password</a>
                             <button class="btn btn-outline-danger ms-2" id="deleteAccountButton">Delete Account</button>
                         </div>
@@ -65,7 +67,14 @@
                     </div>
                     <div id="copySuccessMessage" class="text-success mt-2 d-none">Copied to clipboard!</div>
                     <div class="mt-4">
-                        <button class="btn btn-outline-primary ms-2" style="margin-top: -12px;" onclick="changeApiKey('{{ csrf_token }}')">Change Api Token</button>
+                        <button id="api_key_button" class="btn btn-outline-primary ms-2" style="margin-top: -12px;"
+                                onclick="generateApiKey('{{ csrf_token }}')">
+                            {% if token %}
+                                Change Api Token
+                            {% else %}
+                                Generate Api Token
+                            {% endif %}
+                        </button>
                     </div>
                 </div>
             </div>

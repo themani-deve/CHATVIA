@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="container mt-5">
-                    <h3 class="text-center mb-4">People Who Have Given You Access</h3>
+                    <h3 class="text-center mb-4">People Who Have Given You Access ({{ permissions.count }})</h3>
                     <div class="card p-3">
                         {% if permissions %}
                             {% for permission in permissions %}

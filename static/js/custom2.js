@@ -300,7 +300,7 @@ function deleteAccountFunction(csrf, uid) {
 }
 
 
-function changeApiKey(csrf) {
+function generateApiKey(csrf) {
     $.ajax({
         url: '/change-api-token/',
         type: 'POST',
@@ -309,10 +309,12 @@ function changeApiKey(csrf) {
         },
         success: function (response) {
             $('#apiTokenInput').val(response.new_token);
+            $('#api_key_button').text('Change Api Token').prop('disabled', false);
         },
         error: function (xhr, status, error) {
             console.error("Error deleting account:", error);
             alert("An error occurred while deleting your account. Please try again.");
+            $('#api_key_button').text('Generate Api Token').prop('disabled', false);
         }
     })
 }
