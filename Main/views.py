@@ -1,12 +1,12 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, reverse
-from Main.models import Messages, MlMessages
+from django.shortcuts import render
 from utils.Encryption.main import encryption, decoding
 from Main.signals import is_logged_in
-import joblib
+from utils.functions import process_pos_nev
 
 
 # Create your views here.
+
 
 def main_view(request):
     return render(request, 'Main/index.html')
@@ -14,32 +14,13 @@ def main_view(request):
 
 @is_logged_in
 def chat_with_pos_neg(request):
-    user_messages = Messages.objects.filter(user_id=request.user.id)
-    ml_messages = MlMessages.objects.filter(user_id=request.user.id)
-    list_messages = sorted(list(user_messages) + list(ml_messages), key=lambda message: message.datetime)
-    context = {
-        'messages': list_messages,
-    }
-    return render(request, 'Main/chat_with_pos_neg.html', context)
+    return render(request, 'Main/chat_with_pos_neg.html')
 
 
 @is_logged_in
 def ml_process_pos_neg(request):
-    model = joblib.load('Comprehenc.pkl')
-    vectorizer = joblib.load('vectorizer.pkl')
     text = request.POST.get('text')
-    user_id = request.POST.get('user_id')
-    message: Messages = Messages(user_id=user_id, message=text)
-    message.save()
-    x = vectorizer.transform([text]).toarray()
-    y_pred = model.predict(x)
-    if y_pred == 0:
-        y_pred_to_str = 'Negative'
-    else:
-        y_pred_to_str = 'Positive'
-    ml_message: MlMessages = MlMessages(user_id=user_id, message=y_pred_to_str)
-    ml_message.save()
-
+    y_pred_to_str = process_pos_nev(text)
     return JsonResponse({
         'y_pred': y_pred_to_str,
     })

@@ -43,9 +43,9 @@
                     <i class="ri-add-box-fill"></i>
                 </a>
             </li>
-            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
-                <a class="nav-link" id="pills-setting-tab" data-bs-toggle="pill" href="#pills-setting"
-                   role="tab">
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile">
+                <a class="nav-link{% if request.resolver_match.url_name == 'profile' %} active{% endif %}"
+                   id="pills-setting-tab" href="{% url 'profile' %}">
                     <i class="ri-settings-2-line"></i>
                 </a>
             </li>
@@ -55,12 +55,12 @@
                     <img src="/static/images/users/avatar-1.jpg" alt="" class="profile-user rounded-circle">
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">مشخصات<i
+                    <a class="dropdown-item" href="{% url 'profile' %}">Profile<i
                             class="ri-profile-line float-end text-muted"></i></a>
-                    <a class="dropdown-item" href="#">تنظیمات<i
+                    <a class="dropdown-item" href="#">Settings<i
                             class="ri-settings-3-line float-end text-muted"></i></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">خروج<i
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout<i
                             class="ri-logout-circle-r-line float-end text-muted"></i></a>
                 </div>
             </li>
@@ -83,12 +83,12 @@
                     <img src="/static/images/users/avatar-1.jpg" alt="" class="profile-user rounded-circle">
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">مشخصات<i
+                    <a class="dropdown-item" href="{% url 'profile' %}">Profile<i
                             class="ri-profile-line float-end text-muted"></i></a>
-                    <a class="dropdown-item" href="#">تنظیمات<i
+                    <a class="dropdown-item" href="#">Settings<i
                             class="ri-settings-3-line float-end text-muted"></i></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="auth-login.html">خروج<i
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout<i
                             class="ri-logout-circle-r-line float-end text-muted"></i></a>
                 </div>
             </li>

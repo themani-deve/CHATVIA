@@ -278,3 +278,41 @@ function removeAccess(csrf, username) {
         },
     })
 }
+
+function deleteAccountFunction(csrf, uid) {
+    $.ajax({
+        url: '/delete-account/',
+        type: 'POST',
+        headers: {
+            'X-CSRFToken': csrf,
+        },
+        data: {
+            user_id: uid,
+        },
+        success: function (response) {
+            window.location.href = "/login/";
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting account:", error);
+            alert("An error occurred while deleting your account. Please try again.");
+        }
+    })
+}
+
+
+function changeApiKey(csrf) {
+    $.ajax({
+        url: '/change-api-token/',
+        type: 'POST',
+        headers: {
+            'X-CSRFToken': csrf,
+        },
+        success: function (response) {
+            $('#apiTokenInput').val(response.new_token);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting account:", error);
+            alert("An error occurred while deleting your account. Please try again.");
+        }
+    })
+}

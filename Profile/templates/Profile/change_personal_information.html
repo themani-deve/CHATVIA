@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block side_bar_menu %}
+    {% include 'side_bar_menu.html' %}
+{% endblock %}
+
+{% block lg_flex %}
+    <div class="layout-wrapper d-lg-flex">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h3 class="text-center mb-4">Edit Profile</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" action="{% url 'change_personal_information' %}">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    <label class="form-label">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                            {% if field.errors %}
+                                <div class="alert alert-danger">{{ field.errors }}</div>
+                            {% endif %}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <a href="{% url 'profile' %}" class="btn btn-outline-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

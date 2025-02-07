@@ -56,6 +56,7 @@ def other_users_permission(request):  # Other Users Permission To My Alphabet
     return render(request, 'Other_U_Processing/other_permission.html', context)
 
 
+@is_logged_in
 def chat_with_other_users_alphabet_encryption(request, username):
     user: User = User.objects.filter(username=username).first()
     permission = PermissionForDecodingModel.objects.filter(user1=user, user2=request.user).first()
@@ -65,6 +66,7 @@ def chat_with_other_users_alphabet_encryption(request, username):
         return render(request, 'Other_U_Processing/access_denied.html')
 
 
+@is_logged_in
 def chat_with_other_users_alphabet_decoding(request, username):
     user: User = User.objects.filter(username=username).first()
     permission = PermissionForDecodingModel.objects.filter(user1=user, user2=request.user).first()

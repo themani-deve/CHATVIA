@@ -22,4 +22,6 @@ urlpatterns = [
     path('', include('Authentication.urls')),
     path('', include('Main.urls')),
     path('', include('Other_U_Processing.urls')),
+    path('', include('WebApi.urls')),
+    path('', include('Profile.urls')),
 ]

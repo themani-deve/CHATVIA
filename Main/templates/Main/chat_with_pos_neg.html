@@ -83,55 +83,9 @@
                 <!-- start chat conversation -->
                 <div class="chat-conversation p-3 p-lg-4" data-simplebar="init" style="overflow-y: auto;">
                     <ul class="list-unstyled mb-0">
-                        {% if messages %}
-                            {% for message in messages %}
-                                {% if message|instanceof:"Messages" %}
-                                    <li>
-                                        <div class="conversation-list">
-                                            <div class="chat-avatar">
-                                                <img src="/static/images/users/avatar-4.jpg" alt="">
-                                            </div>
-                                            <div class="user-chat-content">
-                                                <div class="ctext-wrap">
-                                                    <div class="ctext-wrap-content">
-                                                        <p class="mb-0">{{ message.message }}</p>
-                                                        <p class="chat-time mb-0">
-                                                            <span class="align-middle">{{ message.time|date:"H:i" }}</span>
-                                                            <i class="ri-check-double-line align-middle"></i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="conversation-name"></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                {% else %}
-                                    <li class="right">
-                                        <div class="conversation-list">
-                                            <div class="chat-avatar">
-                                                <img src="/static/images/users/avatar-4.jpg" alt="">
-                                            </div>
-                                            <div class="user-chat-content">
-                                                <div class="ctext-wrap">
-                                                    <div class="ctext-wrap-content">
-                                                        <p class="mb-0" id="bot">{{ message.message }}</p>
-                                                        <p class="chat-time mb-0">
-                                                            <span class="align-middle">{{ message.time|date:"H:i" }}</span>
-                                                            <i class="align-middle"></i>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="conversation-name">Bot</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <li class="alert alert-primary text-center" id="empty-box">
-                                Your Chat Box is Empty. Please Start a Conversation!
-                            </li>
-                        {% endif %}
+                        <li class="alert alert-primary text-center" id="empty-box">
+                            Your Chat Box is Empty. Please Start a Conversation!
+                        </li>
                     </ul>
                 </div>
                 <!-- end chat conversation end -->
